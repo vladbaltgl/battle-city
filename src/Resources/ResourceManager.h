@@ -28,6 +28,7 @@ private:
 //    using std::map<const std::string, std::shared_ptr<Renderer::ShaderProgram>> ShaderProgramsMap;
 //    ShaderProgramsMap m_shaderPrograms;
 
+    //проерка пуш
     std::string m_path;
 };
 
