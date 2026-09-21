@@ -72,7 +72,6 @@ namespace Renderer {
 		const char* code = source.c_str();
 		glShaderSource(shaderID, 1, &code, nullptr);
 		glCompileShader(shaderID);
-
 		GLint success;
 		glGetShaderiv(shaderID, GL_COMPILE_STATUS, &success);
 		if (!success)
