@@ -16,24 +16,6 @@ GLfloat colors [] = {
     0.0f, 0.0f, 1.0f
 };
 
-const char* vertex_shader =
-"#version 460\n"
-"layout (location = 0) in vec3 vertex_position;"
-"layout (location = 1) in vec3 vertex_color;"
-"out vec3 color;"
-"void main() {"
-"   color = vertex_color;"
-"   gl_Position = vec4(vertex_position, 1.0);"
-"}";
-
-const char* fragment_shader =
-"#version 460\n"
-"in vec3 color;"
-"out vec4 frag_color;"
-"void main() {"
-"   frag_color = vec4(color, 1.0);"
-"}";
-
 
  int g_windowSizeX = 640;
  int g_windowSizeY = 480;
@@ -48,7 +30,7 @@ void glfwWindowSizeCallback(GLFWwindow* pWindow,const int width, const int heigh
 
 void glfwKeyCallback(GLFWwindow* pWindow, int key, int scancode, int action, int mods)
 {
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS);
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(pWindow, GLFW_TRUE);
 }
 
@@ -93,9 +75,9 @@ int main(int argc, char** argv)
     std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl;
 
 	glClearColor(1,1,0,1);
-
+{
     ResourceManager resourceManager(argv[0]);
-    auto pDefaultShaderProgram = resourceManager.loadShaders("DefaultShader", "res/shader/vertex.txt", "res/shaders/fragment.txt");
+    auto pDefaultShaderProgram = resourceManager.loadShaders("DefaultShader", "res/shader/vertex.txt", "res/shader/fragment.txt");
     if (!pDefaultShaderProgram)
     {
         std::cerr << "Can't create shader program: " << "DefaultShader" << std::endl;
@@ -143,7 +125,7 @@ int main(int argc, char** argv)
         /* Poll for and process events */
         glfwPollEvents();
     }
-
+}
     glfwTerminate();
     return 0;
 }

@@ -7,6 +7,8 @@
 
 ResourceManager::ResourceManager(const std::string& executablePath)
 {
+//    m_path = executablePath.substr(0, executablePath.find_last_of("/\\"));
+
     size_t found = executablePath.find_last_of("/\\");
     m_path = executablePath.substr(0,found);
 }
