@@ -4,6 +4,7 @@
 #include <memory>
 #include <map>
 
+
 namespace Renderer
 {
     class ShaderProgram;
@@ -22,13 +23,14 @@ public:
     std::shared_ptr<Renderer::ShaderProgram> loadShaders(const std::string&shaderName, const std::string&vertexPath, const std::string& freagmentPath);
     std::shared_ptr<Renderer::ShaderProgram> getShaderProgram(const std::string&shaderName);
 
+
 private:
     std::string getFileString(const std::string& relativeFilePath) const;
 
-//    using std::map<const std::string, std::shared_ptr<Renderer::ShaderProgram>> ShaderProgramsMap;
-//    ShaderProgramsMap m_shaderPrograms;
+    using ShaderProgramsMap = std::map<std::string, std::shared_ptr<Renderer::ShaderProgram>>;
+    ShaderProgramsMap m_shaderPrograms;
 
-    //проерка пуш
+
     std::string m_path;
 };
 
