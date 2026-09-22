@@ -94,14 +94,15 @@ int main(int argc, char** argv)
 
 	glClearColor(1,1,0,1);
 
-    std::string vertex_str_shaider (vertex_shader);
-    std::string fragment_str_shader(fragment_shader);
-    Renderer::ShaderProgram shaderProgram (vertex_str_shaider, fragment_str_shader);
-    if (!shaderProgram.isCompliled())
+    ResourceManager resourceManager(argv[0]);
+    auto pDefaultShaderProgram = resourceManager.loadShaders("DefaultShader", "res/shader/vertex.txt", "res/shaders/fragment.txt");
+    if (!pDefaultShaderProgram)
     {
-        std::cerr << "Can't create shader program!"<<std::endl;
+        std::cerr << "Can't create shader program: " << "DefaultShader" << std::endl;
         return -1;
     }
+
+
 
     GLuint points_vbo = 0;
     glGenBuffers(1, &points_vbo);
@@ -112,6 +113,7 @@ int main(int argc, char** argv)
     glGenBuffers(1, &colors_vbo);
     glBindBuffer(GL_ARRAY_BUFFER, colors_vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW);
+
 
     GLuint vao = 0;
     glGenVertexArrays(1, &vao);
@@ -132,11 +134,10 @@ int main(int argc, char** argv)
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
 
-        shaderProgram.use();
+        pDefaultShaderProgram->use();
         glBindVertexArray(vao);
-        glDrawArrays(GL_TRIANGLES,0,3);
-
-        /* Swap front and back buffers */
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+                /* Swap front and back buffers */
         glfwSwapBuffers(pWindow);
 
         /* Poll for and process events */
