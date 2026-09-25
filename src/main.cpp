@@ -4,6 +4,7 @@
 #include "Renderer/ShaderProgram.h"
 #include "Resources/ResourceManager.h"
 #include "Renderer/Texture2D.h"
+#include <glm/vec2.hpp>
 
 GLfloat point[] = {
      0.0f,  0.5f, 0.0f,
@@ -23,14 +24,13 @@ GLfloat texCoord[] = {
     0.0f, 0.0f
 };
 
- int g_windowSizeX = 640;
- int g_windowSizeY = 480;
+glm::ivec2 g_windowSize(640,480);
 
 void glfwWindowSizeCallback(GLFWwindow* pWindow,const int width, const int height)
 {
-    g_windowSizeX = width;
-    g_windowSizeY = height;
-    glViewport(0, 0, g_windowSizeX, g_windowSizeY);
+    g_windowSize.x = width;
+    g_windowSize.y = height;
+    glViewport(0, 0, g_windowSize.x, g_windowSize.y);
 }
 
 
@@ -55,7 +55,7 @@ int main(int argc, char** argv)
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     /* Create a windowed mode window and its OpenGL context */
-    GLFWwindow*  pWindow = glfwCreateWindow(g_windowSizeX, g_windowSizeY, "Battle City", nullptr, nullptr);
+    GLFWwindow*  pWindow = glfwCreateWindow(g_windowSize.x, g_windowSize.y, "Battle City", nullptr, nullptr);
     if (!pWindow)
     {
         std::cout << "glfwCreateWindow failed" << std::endl;
@@ -106,7 +106,6 @@ int main(int argc, char** argv)
     glGenBuffers(1,&texCoord_vbo);
     glBindBuffer(GL_ARRAY_BUFFER, texCoord_vbo);
     glBufferData(GL_ARRAY_BUFFER,sizeof(texCoord), texCoord, GL_STATIC_DRAW);
-
 
 
     GLuint vao = 0;
